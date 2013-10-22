@@ -1,0 +1,8 @@
+framework:
+    secret:          asdgsgr
+
+my_builder_cronos:
+    exporter:
+        mailto: test@example.com
+        path: /bin:~/bin
+        executor: app/console

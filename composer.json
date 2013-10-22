@@ -1,0 +1,36 @@
+{
+    "name": "mybuilder/cronos-bundle",
+    "description": "Symfony 2 bundle which allows you to use @Cron annotations to configure cron to run your console commands.",
+    "keywords": ["cron", "cronos"],
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gavin Love",
+            "email": "gavin@mybuilder.com",
+            "homepage": "http://www.mybuilder.com"
+        },
+        {
+            "name": "Keyvan Akbary",
+            "email": "keyvan@mybuilder.com",
+            "homepage": "http://www.mybuilder.com"
+        }
+    ],
+    "require": {
+        "mybuilder/cronos": "0.8.*",
+        "doctrine/annotations": "1.*",
+        "symfony/console": ">=2.2,<2.4-dev",
+        "symfony/framework-bundle": ">=2.2,<2.4-dev",
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": { "MyBuilder\\Bundle\\CronosBundle": "" }
+    },
+    "target-dir": "MyBuilder/Bundle/CronosBundle",
+    "config": {
+        "bin-dir": "bin"
+    }
+}

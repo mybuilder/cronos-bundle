@@ -1,0 +1,22 @@
+services:
+
+    mybuilder.cronos_bundle.annotation_cron_exporter:
+        class: MyBuilder\Bundle\CronosBundle\Service\AnnotationCronExporter
+        arguments:
+            - @annotation_reader
+        calls:
+            - [ setConfig, [%mybuilder.cronos_bundle.exporter_config%] ]
+
+    mybuilder.cronos_bundle.cron_process_updater:
+        class: MyBuilder\Cronos\Updater\CronProcessUpdater
+        arguments:
+            - @mybuilder.cronos_bundle.filesystem
+            - @mybuilder.cronos_bundle.process_runner
+
+    mybuilder.cronos_bundle.filesystem:
+        class: MyBuilder\Cronos\Updater\FileSystem
+        private: true
+
+    mybuilder.cronos_bundle.process_runner:
+        class: MyBuilder\Cronos\Updater\ProcessRunner
+        private: true

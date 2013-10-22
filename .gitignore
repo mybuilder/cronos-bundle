@@ -1,0 +1,5 @@
+composer.lock
+composer.phar
+bin/
+vendor/
+/Tests/Fixtures/app/cache/

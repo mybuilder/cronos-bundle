@@ -1,0 +1,18 @@
+language: php
+
+php:
+    - 5.3
+    - 5.4
+    - 5.5
+
+env:
+  - SYMFONY_VERSION="2.2.*"
+  - SYMFONY_VERSION="2.3.*"
+
+before_script:
+    - curl -s http://getcomposer.org/installer | php
+    - php composer.phar require symfony/framework-bundle:${SYMFONY_VERSION}
+    - php composer.phar require symfony/console:${SYMFONY_VERSION}
+    - php composer.phar install --dev
+
+script: bin/phpunit

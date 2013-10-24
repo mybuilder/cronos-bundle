@@ -61,12 +61,13 @@ class DumpCommandTest extends CronosTestCase
         return array(
             array(
 'Server all
-Found 2 lines
+Found 3 lines
 We would have put the following in cron
 PATH=/bin:~/bin
 MAILTO=test@example.com
-27   01   *    *    6    app/console cronos:test-command --env=test
-*/5  */3  *    *    *    app/console cronos:test-command --env=test',
+27   0    *    *    6    php app/console cronos:test-command --env=test
+*/5  */3  *    *    *    php app/console cronos:test-command --env=test
+41   10   1    *    *    php -d mbstring.func_overload=0 app/console cronos:test-command --env=test',
                 array(
                     '--env' => 'test'
                 )
@@ -77,7 +78,7 @@ Found 1 lines
 We would have put the following in cron
 PATH=/bin:~/bin
 MAILTO=test@example.com
-27   01   *    *    6    app/console cronos:test-command --env=prod',
+27   0    *    *    6    php app/console cronos:test-command --env=prod',
                 array(
                     '--env' => 'prod',
                     '--server' => 'web'

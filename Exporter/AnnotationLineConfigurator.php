@@ -13,31 +13,31 @@ class AnnotationLineConfigurator
 
     public function configureFrom($annotation)
     {
-        if ($annotation->minute) {
+        if ($annotation->minute !== null) {
             $this->line->setMinute($annotation->minute);
         }
-        if ($annotation->hour) {
+        if ($annotation->hour !== null) {
             $this->line->setHour($annotation->hour);
         }
-        if ($annotation->dayOfMonth) {
+        if ($annotation->dayOfMonth !== null) {
             $this->line->setDayOfMonth($annotation->dayOfMonth);
         }
-        if ($annotation->month) {
+        if ($annotation->month !== null) {
             $this->line->setMonth($annotation->month);
         }
-        if ($annotation->dayOfWeek) {
+        if ($annotation->dayOfWeek !== null) {
             $this->line->setDayOfWeek($annotation->dayOfWeek);
         }
-        if ($annotation->comment) {
+        if ($annotation->comment !== null) {
             $this->line->addComment($annotation->comment);
         }
-        if ($annotation->logFile) {
+        if ($annotation->logFile !== null) {
             $this->line->setStandardOutFile($annotation->logFile);
         }
-        if ($annotation->errorFile) {
+        if ($annotation->errorFile !== null) {
             $this->line->setStandardErrorFile($annotation->errorFile);
         }
-        if ($annotation->noLogs) {
+        if ($annotation->noLogs !== null) {
             $this->line->suppressOutput();
         }
 

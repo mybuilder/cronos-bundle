@@ -2,5 +2,6 @@ my_builder_cronos:
     exporter:
         mailto: config-test@example.com
         path: /bin:/usr/local/bin
-        executor: app/console
+        executor: php
+        console: app/console
         shell: /bin/bash

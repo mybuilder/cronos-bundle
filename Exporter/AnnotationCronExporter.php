@@ -106,18 +106,17 @@ class AnnotationCronExporter
      */
     private function buildCommand($commandName, $annotation, array $options)
     {
-        $command = $commandName;
         if ($annotation->executor) {
-            $command = $annotation->executor . ' ' . $command;
-        } else if (isset($this->config['executor'])) {
-            $command = $this->config['executor'] . ' ' . $command;
+            $executor = $annotation->executor;
+        } else if ($this->config['executor']) {
+            $executor = $this->config['executor'];
+        } else {
+            $executor = '';
         }
-        if (isset($options['environment'])) {
-            $command .= ' --env=' . $options['environment'];
-        }
-        if ($annotation->params) {
-            $command .= ' ' . $annotation->params;
-        }
-        return $command;
+
+        $console = isset($this->config['console']) ? ' ' . $this->config['console'] : '';
+        $environment = isset($options['environment']) ? ' --env=' . $options['environment'] : '';
+        $params = $annotation->params ? ' ' . $annotation->params : '';
+        return $executor . $console . ' ' . $commandName . $params . $environment;
     }
 }

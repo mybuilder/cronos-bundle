@@ -40,7 +40,8 @@ my_builder_cronos:
     exporter:
         mailto: cron@example.com
         path: /bin:/home/gavin/bin
-        executor: app/console
+        executor: php
+        console: app/console
         shell: /bin/bash
 ```
 
@@ -48,7 +49,9 @@ my_builder_cronos:
 
 `path` sets the path for all commands in the crontab it works just like the shell PATH, but it does not inherit from your environment. That means you cannot use ~ or other shell expansions.
 
-`executor` allows you to specify a program that all commands should be passed to such as `app/console` or `/usr/local/bin/php`
+`executor` allows you to specify a program that all commands should be passed to such as `/usr/local/bin/php`
+
+`console` allows you to specify the console that all commands should be passed to such as `app/console`
 
 `shell` allows you to specify which shell each program should be run with.
 

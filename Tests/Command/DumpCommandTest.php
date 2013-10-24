@@ -65,9 +65,11 @@ Found 2 lines
 We would have put the following in cron
 PATH=/bin:~/bin
 MAILTO=test@example.com
-27   01   *    *    6    app/console cronos:test-command
-*/5  */3  *    *    *    app/console cronos:test-command',
-                array()
+27   01   *    *    6    app/console cronos:test-command --env=test
+*/5  */3  *    *    *    app/console cronos:test-command --env=test',
+                array(
+                    '--env' => 'test'
+                )
             ),
             array(
 'Server web
@@ -75,8 +77,11 @@ Found 1 lines
 We would have put the following in cron
 PATH=/bin:~/bin
 MAILTO=test@example.com
-27   01   *    *    6    app/console cronos:test-command',
-                array('--server' => 'web')
+27   01   *    *    6    app/console cronos:test-command --env=prod',
+                array(
+                    '--env' => 'prod',
+                    '--server' => 'web'
+                )
             )
         );
     }

@@ -1,7 +1,7 @@
 services:
 
     mybuilder.cronos_bundle.annotation_cron_exporter:
-        class: MyBuilder\Bundle\CronosBundle\Service\AnnotationCronExporter
+        class: MyBuilder\Bundle\CronosBundle\Exporter\AnnotationCronExporter
         arguments:
             - @annotation_reader
         calls:

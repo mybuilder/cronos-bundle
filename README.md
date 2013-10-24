@@ -113,6 +113,11 @@ commands which are specified for that server.
 
 `app/console cron:replace --server=web`
 
+### Environment
+
+You can choose which environment you want to run the commands in cron under like this
+
+`app/console cron:replace --server=web --env=prod`
 
 ## Troubleshooting
 

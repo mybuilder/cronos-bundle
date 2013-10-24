@@ -2,7 +2,7 @@
 
 namespace MyBuilder\Bundle\CronosBundle\Command;
 
-use MyBuilder\Bundle\CronosBundle\Service\AnnotationCronExporter;
+use MyBuilder\Bundle\CronosBundle\Exporter\AnnotationCronExporter;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -29,19 +29,23 @@ class CommandBase extends ContainerAwareCommand
      */
     protected function configureCronExport(InputInterface $input, OutputInterface $output)
     {
-        $serverName = $input->getOption('server');
-        $output->writeln(sprintf('Server <comment>%s</comment>', $serverName));
-        $cron = $this->exportCron($serverName);
+        $options = array(
+            'serverName' => $input->getOption('server'),
+            'environment' => $input->getOption('env')
+        );
+
+        $output->writeln(sprintf('Server <comment>%s</comment>', $options['serverName']));
+        $cron = $this->exportCron($options);
         $output->writeln(sprintf('<Comment>Found %d lines<comment>', $cron->countLines()));
 
         return $cron;
     }
 
-    private function exportCron($serverName)
+    private function exportCron($options)
     {
         $commands = $this->getApplication()->all();
         $exporter = $this->getContainer()->get('mybuilder.cronos_bundle.annotation_cron_exporter');
 
-        return $exporter->export($commands, $serverName);
+        return $exporter->export($commands, $options);
     }
 }

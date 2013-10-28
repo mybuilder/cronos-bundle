@@ -18,5 +18,5 @@ services:
         private: true
 
     mybuilder.cronos_bundle.filesystem:
-            class: MyBuilder\Cronos\Updater\FileSystem
-            private: true
+        class: MyBuilder\Cronos\Updater\FileSystem
+        private: true

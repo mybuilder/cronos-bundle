@@ -3,6 +3,7 @@
 namespace MyBuilder\Bundle\CronosBundle\Command;
 
 use MyBuilder\Bundle\CronosBundle\Exporter\AnnotationCronExporter;
+use MyBuilder\Cronos\Formatter\Cron;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -25,7 +26,7 @@ class CommandBase extends ContainerAwareCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return mixed
+     * @return Cron
      */
     protected function configureCronExport(InputInterface $input, OutputInterface $output)
     {

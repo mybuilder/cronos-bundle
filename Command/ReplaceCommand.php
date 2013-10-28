@@ -29,7 +29,7 @@ class ReplaceCommand extends CommandBase
 
         $updater = $this->getContainer()->get('mybuilder.cronos_bundle.cron_process_updater');
         try {
-            $updater->updateWith($cron->format());
+            $updater->updateWith($cron);
             $output->writeln('<info>Cron successfully updated</info>');
         } catch (CronUpdatingError $e) {
             $output->writeln(sprintf('<Comment>Cron cannot be updated - %s<comment>', $e->getMessage()));

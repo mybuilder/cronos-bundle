@@ -14,9 +14,9 @@ services:
             - @mybuilder.cronos_bundle.filesystem
 
     mybuilder.cronos_bundle.process_runner:
-        class: MyBuilder\Cronos\Updater\ProcessRunner
+        class: MyBuilder\Cronos\Updater\SymfonyProcessRunner
         private: true
 
     mybuilder.cronos_bundle.filesystem:
-        class: MyBuilder\Cronos\Updater\FileSystem
+        class: MyBuilder\Cronos\Updater\SymfonyFileSystem
         private: true

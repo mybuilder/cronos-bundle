@@ -19,8 +19,8 @@
     "require": {
         "mybuilder/cronos": "0.9.*",
         "doctrine/annotations": "1.*",
-        "symfony/console": ">=2.2,<2.4-dev",
-        "symfony/framework-bundle": ">=2.2,<2.4-dev",
+        "symfony/console": ">=2.2,<=2.4",
+        "symfony/framework-bundle": ">=2.2,<=2.4",
         "php": ">=5.3.3"
     },
     "require-dev": {

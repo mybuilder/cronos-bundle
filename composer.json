@@ -32,5 +32,10 @@
     "target-dir": "MyBuilder/Bundle/CronosBundle",
     "config": {
         "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.9.3"
+        }
     }
 }

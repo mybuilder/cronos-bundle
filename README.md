@@ -3,7 +3,7 @@ Cronos Bundle [![Build Status](https://travis-ci.org/mybuilder/cronos-bundle.png
 
 A bundle for Symfony 2 that allows you to use @Cron annotations to configure when cron should run your console commands.
 
-Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the output and updating.
+Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the atcual output and updating, it can be used on its own if you don't use symfony.
 
 ## Installation
 

@@ -2,7 +2,6 @@
 
 namespace MyBuilder\Bundle\CronosBundle\Command;
 
-use MyBuilder\Cronos\Updater\CronUpdatingError;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -29,10 +28,10 @@ class ReplaceCommand extends CommandBase
 
         $updater = $this->getContainer()->get('mybuilder.cronos_bundle.cron_process_updater');
         try {
-            $updater->updateWith($cron);
-            $output->writeln('<info>Cron successfully updated</info>');
-        } catch (CronUpdatingError $e) {
-            $output->writeln(sprintf('<Comment>Cron cannot be updated - %s<comment>', $e->getMessage()));
+            $updater->replaceWith($cron);
+            $output->writeln('<info>Cron successfully replaced</info>');
+        } catch (\RuntimeException $e) {
+            $output->writeln(sprintf('<Comment>Cron cannot be replaced - %s<comment>', $e->getMessage()));
         }
     }
 }

@@ -11,10 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CommandBase extends ContainerAwareCommand
 {
-    /**
-     * Configure the shared command options
-     */
-    protected function configureSharedOptions()
+    protected function addServerOption()
     {
         $this
             ->addOption('server', null, InputOption::VALUE_REQUIRED, 'Only include cron jobs for the specified server', AnnotationCronExporter::ALL_SERVERS);

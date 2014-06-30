@@ -19,7 +19,7 @@ class DumpCommand extends CommandBase
             ->setName('cronos:dump')
             ->setDescription('Dump cron configuration');
 
-        $this->configureSharedOptions();
+        $this->addServerOption();
     }
 
     /**

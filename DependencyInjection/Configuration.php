@@ -16,6 +16,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('exporter')
                     ->children()
+                        ->scalarNode('key')->isRequired()->example('generated')->end()
                         ->scalarNode('mailto')->example('cron@example.com')->end()
                         ->scalarNode('path')->example('/usr/local/bin:/usr/bin:/bin') ->end()
                         ->scalarNode('executor')->example('php') ->end()

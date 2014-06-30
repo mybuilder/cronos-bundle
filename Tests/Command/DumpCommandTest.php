@@ -10,18 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
-/**
- * DumpCommandTest
- */
 class DumpCommandTest extends CronosTestCase
 {
-    /**
-     * @var Application
-     */
     private $application;
-    /**
-     * @var Command
-     */
     private $command;
 
     protected function setUp()
@@ -39,14 +30,10 @@ class DumpCommandTest extends CronosTestCase
     }
 
     /**
-     * Test the DumpCommand
-     *
-     * @param string $expectedOutput
-     * @param array  $input   An array of arguments and options
-     *
-     * @dataProvider providerDumpOfTestCommand
+     * @test
+     * @dataProvider environmentDumps
      */
-    public function testDumpOfTestCommand($expectedOutput, array $input)
+    public function dumpShouldBeAsExpected($expectedOutput, array $input)
     {
         $input = array_merge(array('command' => $this->command->getName()), $input);
 
@@ -56,7 +43,7 @@ class DumpCommandTest extends CronosTestCase
         $this->assertEquals($expectedOutput, trim($commandTester->getDisplay()));
     }
 
-    public function providerDumpOfTestCommand()
+    public function environmentDumps()
     {
         return array(
             array(
@@ -65,8 +52,11 @@ Found 3 lines
 We would have put the following in cron
 PATH=/bin:~/bin
 MAILTO=test@example.com
+
 27   0    *    *    6    php app/console cronos:test-command --env=test
+
 */5  */3  *    *    *    php app/console cronos:test-command --env=test
+
 41   10   1    *    *    php -d mbstring.func_overload=0 app/console cronos:test-command --env=test',
                 array(
                     '--env' => 'test'
@@ -78,6 +68,7 @@ Found 1 lines
 We would have put the following in cron
 PATH=/bin:~/bin
 MAILTO=test@example.com
+
 27   0    *    *    6    php app/console cronos:test-command --env=prod',
                 array(
                     '--env' => 'prod',

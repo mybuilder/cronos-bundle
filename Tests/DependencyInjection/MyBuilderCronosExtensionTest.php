@@ -54,6 +54,7 @@ class MyBuilderCronosExtensionTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 array(
+                    'key' => 'test',
                     'mailto' => 'config-test@example.com',
                     'path' => '/bin:/usr/local/bin',
                     'executor' => 'php',

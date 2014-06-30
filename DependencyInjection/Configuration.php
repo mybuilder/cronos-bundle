@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('exporter')
                     ->children()
                         ->scalarNode('mailto')->example('cron@example.com')->end()
-                        ->scalarNode('path')->example('/usr/local/bin::/usr/bin:/bin') ->end()
+                        ->scalarNode('path')->example('/usr/local/bin:/usr/bin:/bin') ->end()
                         ->scalarNode('executor')->example('php') ->end()
                         ->scalarNode('console')->example('app/console') ->end()
                         ->scalarNode('shell')->example('/bin/sh') ->end()

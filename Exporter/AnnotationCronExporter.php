@@ -56,7 +56,7 @@ class AnnotationCronExporter
     private function createCronConfiguration()
     {
         $cron = new CronFormatter;
-        $configurator = new ArrayHeaderConfigurator($cron->beginHeader());
+        $configurator = new ArrayHeaderConfigurator($cron->header());
         $configurator->configureFrom($this->config);
         return $cron;
     }
@@ -81,8 +81,14 @@ class AnnotationCronExporter
 
     private function addLine($command, $annotation, array $options, $cron)
     {
-        $line = $cron->newLine($this->buildCommand($command->getName(), $annotation, $options));
-        $line->addComment($command->getDescription());
+        if ($annotation->comment !== null) {
+            $cron->comment($annotation->comment);
+        }
+        if ($command->getDescription()) {
+            $cron->comment($command->getDescription());
+        }
+        $line = $cron->job($this->buildCommand($command->getName(), $annotation, $options));
+        
         $configurator = new AnnotationLineConfigurator($line);
         $configurator->configureFrom($annotation);
         return $cron;

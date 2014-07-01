@@ -1,43 +1,41 @@
-Cronos Bundle [![Build Status](https://travis-ci.org/mybuilder/cronos-bundle.png?branch=master)](https://travis-ci.org/mybuilder/cronos-bundle)
-=============
+# Cronos Bundle
 
-A bundle for Symfony 2 that allows you to use @Cron annotations to configure when cron should run your console commands.
+[![Build Status](https://travis-ci.org/mybuilder/cronos-bundle.svg?branch=master)](https://travis-ci.org/mybuilder/cronos-bundle)
 
-Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the atcual output and updating, it can be used on its own if you don't use symfony.
+A bundle for Symfony 2 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
+
+Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual output and updating.
 
 ## Installation
 
-### Step 1: Install with composer
+### Install with composer
 
 Run the composer require command:
 
 ``` bash
 $ php composer.phar require mybuilder/cronos-bundle
 ```
-### Step 2: Enable the bundle
 
-Finally, enable the bundle in the kernel:
+### Enable the bundle
+
+Enable the bundle in the `app/AppKernel.php`:
 
 ``` php
-<?php
-// app/AppKernel.php
-
-public function registerBundles()
-{
+public function registerBundles() {
     $bundles = array(
-        // ...
         new MyBuilder\Bundle\CronosBundle\MyBuilderCronosBundle(),
     );
 }
 ```
 
-### Step 3: Configure the bundle (optional)
+### Configure the bundle
 
 You can add the following to your `config.yml` to specify
 
 ```yaml
 my_builder_cronos:
     exporter:
+        key: unique-key
         mailto: cron@example.com
         path: /bin:/home/gavin/bin
         executor: php
@@ -45,15 +43,14 @@ my_builder_cronos:
         shell: /bin/bash
 ```
 
-`mailto` sets the default email address for all cron output to go to.
-
-`path` sets the path for all commands in the crontab it works just like the shell PATH, but it does not inherit from your environment. That means you cannot use ~ or other shell expansions.
-
-`executor` allows you to specify a program that all commands should be passed to such as `/usr/local/bin/php`
-
-`console` allows you to specify the console that all commands should be passed to such as `app/console`
-
-`shell` allows you to specify which shell each program should be run with.
+option   | description
+---------|-----------------------------------------
+key      | Unique key that wraps all the cron configured for the current application
+mailto   | Sets the default email address for all cron output to go to.
+path     | Sets the path for all commands in the crontab it works just like the shell PATH, but it does not inherit from your environment. That means you cannot use ~ or other shell expansions.
+executor | Allows you to specify a program that all commands should be passed to such as `/usr/local/bin/php`
+console  | Allows you to specify the console that all commands should be passed to such as `app/console`
+shell    | Allows you to specify which shell each program should be run with.
 
 ## Usage
 
@@ -72,7 +69,7 @@ This example says it should be run on the web server, every 5 minutes and we don
  *
  * @Cron(minute="/5", noLogs=true, server="web")
  */
-class SendQueuedEmailsCommand extends Command
+class SendQueuedEmailsCommand extends Command {}
 ```
 
 ### Specifying when to run
@@ -84,19 +81,16 @@ cron and what you can use in these time fields.
 **Please note** You CANNOT use `*/` in the annotations, if you want `*/5` just put `/5` and [Cronos](https://github.com/mybuilder/cronos)
 will automatically change it to `*/5`.
 
-##### Examples
+### Annotation examples
 
-` @Cron(minute="/5"); ` - Every 5 minutes
-
-` @Cron(minute="5"); ` - At the 5th minute of each hour
-
-` @Cron(minute="5", hour="8") ` 5 minutes past 8am every day
-
-` @Cron(minute="5", hour="8", dayOfWeek="0") ` 5 minutes past 8am every Sunday
-
-` @Cron(minute="5", hour="8", dayOfMonth="1") ` 5 minutes past 8am on first of each month
-
-` @Cron(minute="5", hour="8", dayOfMonth="1", month="1") ` 5 minutes past 8am on first of of January
+annotation                                               | description
+---------------------------------------------------------|------------------------------------------
+`@Cron(minute="/5")`                                     | Every 5 minutes
+`@Cron(minute="5")`                                      | At the 5th minute of each hour
+`@Cron(minute="5", hour="8")`                            | 5 minutes past 8am every day
+`@Cron(minute="5", hour="8", dayOfWeek="0")`             | 5 minutes past 8am every Sunday
+`@Cron(minute="5", hour="8", dayOfMonth="1")`            | 5 minutes past 8am on first of each month
+`@Cron(minute="5", hour="8", dayOfMonth="1", month="1")` | 5 minutes past 8am on first of of January
 
 ## Building the cron
 
@@ -105,16 +99,13 @@ If everything looks ok you can replace your crontab by running the command below
 
 `app/console cron:replace`
 
-**Please note that this will REPLACE your entire crontab!**
-
 You can also limit which commands are included in the cron file by specifying a server and it will then only show
 commands which are specified for that server.
 
-##### Examples
+### Exporting the cron
 
-`app/console cron:dump --server=web`
-
-`app/console cron:replace --server=web`
+    app/console cron:dump --server=web
+    app/console cron:replace --server=web
 
 ### Environment
 

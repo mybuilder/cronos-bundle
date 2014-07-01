@@ -28,9 +28,6 @@ class AnnotationLineConfigurator
         if ($annotation->dayOfWeek !== null) {
             $this->line->setDayOfWeek($annotation->dayOfWeek);
         }
-        if ($annotation->comment !== null) {
-            $this->line->addComment($annotation->comment);
-        }
         if ($annotation->logFile !== null) {
             $this->line->setStandardOutFile($annotation->logFile);
         }

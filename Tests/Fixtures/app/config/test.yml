@@ -3,6 +3,7 @@ framework:
 
 my_builder_cronos:
     exporter:
+        key: test
         mailto: test@example.com
         path: /bin:~/bin
         executor: php

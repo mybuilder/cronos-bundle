@@ -4,6 +4,7 @@ services:
         class: MyBuilder\Bundle\CronosBundle\Exporter\AnnotationCronExporter
         arguments:
             - @annotation_reader
+            - %mybuilder.cronos_bundle.commands.exclude%
         calls:
             - [ setConfig, [%mybuilder.cronos_bundle.exporter_config%] ]
 

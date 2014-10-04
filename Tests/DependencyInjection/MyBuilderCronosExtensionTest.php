@@ -29,6 +29,8 @@ class MyBuilderCronosExtensionTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->container = new ContainerBuilder();
+        $this->container->setParameter('kernel.logs_dir','logs_dir');
+        $this->container->setParameter('kernel.environment','test');
         $this->loader = new MyBuilderCronosExtension();
     }
 
@@ -49,7 +51,12 @@ class MyBuilderCronosExtensionTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                array(),
+                array(
+                    'key' => 'my_builder_cronos',
+                    'path' => '/usr/local/bin:/usr/bin:/bin',
+                    'executor' => 'php',
+                    'console' => 'app/console',
+                ),
                 'empty.yml'
             ),
             array(

@@ -29,7 +29,8 @@ class CommandBase extends ContainerAwareCommand
     {
         $options = array(
             'serverName' => $input->getOption('server'),
-            'environment' => $input->getOption('env')
+            'environment' => $input->getOption('env'),
+            'base_dir' => realpath($this->getContainer()->getParameter('kernel.root_dir') . '/..')
         );
 
         $output->writeln(sprintf('Server <comment>%s</comment>', $options['serverName']));
@@ -43,6 +44,7 @@ class CommandBase extends ContainerAwareCommand
     {
         $commands = $this->getApplication()->all();
         $exporter = $this->getContainer()->get('mybuilder.cronos_bundle.annotation_cron_exporter');
+        $exporter->setIncludeCommands($this->getContainer()->getParameter('mybuilder.cronos_bundle.commands.include'));
 
         return $exporter->export($commands, $options);
     }

@@ -10,12 +10,22 @@ class AnnotationCronExporter
 {
     const ALL_SERVERS = 'all';
 
+    /** @var \Doctrine\Common\Annotations\Reader */
     private $annotationsReader;
+
+    /** @var array */
     private $config = array();
 
-    public function __construct($annotationsReader)
+    /** @var array */
+    private $excludeCommands = array();
+
+    /** @var array */
+    private $includeCommands = array();
+
+    public function __construct($annotationsReader, array $excludeCommands = array())
     {
         $this->annotationsReader = $annotationsReader;
+        $this->excludeCommands = $excludeCommands;
     }
 
     /**
@@ -29,6 +39,14 @@ class AnnotationCronExporter
     }
 
     /**
+     * @param array $includeCommands
+     */
+    public function setIncludeCommands($includeCommands)
+    {
+        $this->includeCommands = $includeCommands;
+    }
+
+    /**
      * Export the cron for the given commands and server
      *
      * @param array $commands
@@ -39,13 +57,36 @@ class AnnotationCronExporter
     public function export(array $commands, array $options)
     {
         $cron = $this->createCronConfiguration();
-        foreach ($commands as $command) {
-            if ($command instanceof Command) {
+        foreach ($commands as $name => $command) {
+            if ($command instanceof Command && !$this->isExcludeCommand($name)) {
                 $cron = $this->parseAnnotations($cron, $command, $options);
             }
         }
 
+        foreach ($this->includeCommands as $include) {
+            $command = isset($commands[$include['command']]) ? $commands[$include['command']] : null;
+            if ($command instanceof Command && !$this->isExcludeCommand($include['command'])) {
+                unset($include['command']);
+                $annotation = new CronAnnotation($include);
+                if ($this->annotationBelongsToServer($annotation, $options['serverName'])) {
+                    $cron = $this->addLine($command, $annotation, $options, $cron);
+                }
+            }
+        }
+
         return $cron;
+    }
+
+    /**
+     * check is Exclude Command
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    private function isExcludeCommand($name)
+    {
+        return in_array($name, $this->excludeCommands);
     }
 
     /**
@@ -79,7 +120,7 @@ class AnnotationCronExporter
             ($serverName === self::ALL_SERVERS || $annotation->server === $serverName);
     }
 
-    private function addLine($command, $annotation, array $options, $cron)
+    private function addLine(Command $command, $annotation, array $options, CronFormatter $cron)
     {
         if ($annotation->comment !== null) {
             $cron->comment($annotation->comment);
@@ -88,7 +129,6 @@ class AnnotationCronExporter
             $cron->comment($command->getDescription());
         }
         $line = $cron->job($this->buildCommand($command->getName(), $annotation, $options));
-        
         $configurator = new AnnotationLineConfigurator($line);
         $configurator->configureFrom($annotation);
         return $cron;
@@ -120,9 +160,11 @@ class AnnotationCronExporter
             $executor = '';
         }
 
+        $baseDir = empty($options['base_dir']) ? '' : 'cd ' . $options['base_dir'] . '; ';
         $console = isset($this->config['console']) ? ' ' . $this->config['console'] : '';
         $environment = isset($options['environment']) ? ' --env=' . $options['environment'] : '';
         $params = $annotation->params ? ' ' . $annotation->params : '';
-        return $executor . $console . ' ' . $commandName . $params . $environment;
+
+        return $baseDir . $executor . $console . ' ' . $commandName . $params . $environment;
     }
 }

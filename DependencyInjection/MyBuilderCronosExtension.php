@@ -13,7 +13,6 @@ class MyBuilderCronosExtension extends Extension
     {
         $config = $this->processConfiguration(new Configuration(), $configs);
 
-        $container->setParameter('mybuilder.cronos_bundle.commands.exclude', $config['commands']['exclude']);
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
@@ -21,7 +20,7 @@ class MyBuilderCronosExtension extends Extension
             . $container->getParameter('kernel.environment')
             . '_cron.log';
         array_walk(
-            $config['commands']['include'],
+            $config['commands'],
             function (&$val) use ($baseLog) {
                 if (!$val['noLogs'] && empty($val['logFile'])) {
                     $val['logFile'] = $baseLog;
@@ -30,7 +29,7 @@ class MyBuilderCronosExtension extends Extension
         );
 
         $container->setParameter('mybuilder.cronos_bundle.exporter_config', $config['exporter']);
-        $container->setParameter('mybuilder.cronos_bundle.commands.include', $config['commands']['include']);
+        $container->setParameter('mybuilder.cronos_bundle.commands', $config['commands']);
 
     }
 }

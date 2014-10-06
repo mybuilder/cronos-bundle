@@ -17,15 +17,11 @@ class AnnotationCronExporter
     private $config = array();
 
     /** @var array */
-    private $excludeCommands = array();
-
-    /** @var array */
     private $includeCommands = array();
 
-    public function __construct($annotationsReader, array $excludeCommands = array())
+    public function __construct($annotationsReader)
     {
         $this->annotationsReader = $annotationsReader;
-        $this->excludeCommands = $excludeCommands;
     }
 
     /**
@@ -58,35 +54,21 @@ class AnnotationCronExporter
     {
         $cron = $this->createCronConfiguration();
         foreach ($commands as $name => $command) {
-            if ($command instanceof Command && !$this->isExcludeCommand($name)) {
+            if ($command instanceof Command) {
                 $cron = $this->parseAnnotations($cron, $command, $options);
             }
         }
 
         foreach ($this->includeCommands as $include) {
             $command = isset($commands[$include['command']]) ? $commands[$include['command']] : null;
-            if ($command instanceof Command && !$this->isExcludeCommand($include['command'])) {
+            if ($command instanceof Command) {
                 unset($include['command']);
                 $annotation = new CronAnnotation($include);
-                if ($this->annotationBelongsToServer($annotation, $options['serverName'])) {
-                    $cron = $this->addLine($command, $annotation, $options, $cron);
-                }
+                $cron = $this->addLine($command, $annotation, $options, $cron);
             }
         }
 
         return $cron;
-    }
-
-    /**
-     * check is Exclude Command
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    private function isExcludeCommand($name)
-    {
-        return in_array($name, $this->excludeCommands);
     }
 
     /**
@@ -105,9 +87,7 @@ class AnnotationCronExporter
     private function parseAnnotations($cron, Command $command, array $options)
     {
         foreach ($this->getAnnotations($command) as $annotation) {
-            if ($this->annotationBelongsToServer($annotation, $options['serverName'])) {
-                $cron = $this->addLine($command, $annotation, $options, $cron);
-            }
+            $cron = $this->addLine($command, $annotation, $options, $cron);
         }
 
         return $cron;
@@ -122,15 +102,18 @@ class AnnotationCronExporter
 
     private function addLine(Command $command, $annotation, array $options, CronFormatter $cron)
     {
-        if ($annotation->comment !== null) {
-            $cron->comment($annotation->comment);
+        if ($this->annotationBelongsToServer($annotation, $options['serverName'])) {
+            if ($annotation->comment !== null) {
+                $cron->comment($annotation->comment);
+            }
+            if ($command->getDescription()) {
+                $cron->comment($command->getDescription());
+            }
+            $line = $cron->job($this->buildCommand($command->getName(), $annotation, $options));
+            $configurator = new AnnotationLineConfigurator($line);
+            $configurator->configureFrom($annotation);
         }
-        if ($command->getDescription()) {
-            $cron->comment($command->getDescription());
-        }
-        $line = $cron->job($this->buildCommand($command->getName(), $annotation, $options));
-        $configurator = new AnnotationLineConfigurator($line);
-        $configurator->configureFrom($annotation);
+
         return $cron;
     }
 

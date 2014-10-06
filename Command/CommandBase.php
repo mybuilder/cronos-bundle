@@ -44,7 +44,7 @@ class CommandBase extends ContainerAwareCommand
     {
         $commands = $this->getApplication()->all();
         $exporter = $this->getContainer()->get('mybuilder.cronos_bundle.annotation_cron_exporter');
-        $exporter->setIncludeCommands($this->getContainer()->getParameter('mybuilder.cronos_bundle.commands.include'));
+        $exporter->setIncludeCommands($this->getContainer()->getParameter('mybuilder.cronos_bundle.commands'));
 
         return $exporter->export($commands, $options);
     }

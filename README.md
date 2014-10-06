@@ -110,26 +110,14 @@ You can add the following to your `config.yml` to specify
 my_builder_cronos:
 #....
     commands:
-        include:
-            swift:
-                command: 'swiftmailer:spool:send'
-                minute: '/5'
+        swift:
+            command: 'swiftmailer:spool:send'
+            minute: '/5'
 ```
 
 view all options
 
     app/console config:dump-reference my_builder_cronos
-
-## exclude cron task
-
-You can add the following to your `config.yml` to specify
-
-```yaml
-my_builder_cronos:
-#....
-    commands:
-        exclude: ['swiftmailer:spool:send']
-```
 
 ### Exporting the cron
 

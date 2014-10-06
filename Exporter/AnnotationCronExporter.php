@@ -53,7 +53,7 @@ class AnnotationCronExporter
     public function export(array $commands, array $options)
     {
         $cron = $this->createCronConfiguration();
-        foreach ($commands as $name => $command) {
+        foreach ($commands as $command) {
             if ($command instanceof Command) {
                 $cron = $this->parseAnnotations($cron, $command, $options);
             }

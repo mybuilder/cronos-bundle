@@ -2,7 +2,6 @@
 
 namespace MyBuilder\Bundle\CronosBundle\Tests\Fixtures\app;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use MyBuilder\Bundle\CronosBundle\MyBuilderCronosBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\HttpKernel\Kernel;

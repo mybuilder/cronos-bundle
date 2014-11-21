@@ -79,6 +79,9 @@ class AnnotationCronExporter
             ($serverName === self::ALL_SERVERS || $annotation->server === $serverName);
     }
 
+    /**
+     * @param Command $command
+     */
     private function addLine($command, $annotation, array $options, $cron)
     {
         if ($annotation->comment !== null) {

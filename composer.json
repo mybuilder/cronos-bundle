@@ -14,13 +14,18 @@
             "name": "Keyvan Akbary",
             "email": "keyvan@mybuilder.com",
             "homepage": "http://www.mybuilder.com"
+        },
+        {
+            "name": "MyBuilder Community",
+            "homepage": "https://github.com/mybuilder/cronos-bundle/contributors"
         }
+
     ],
     "require": {
         "mybuilder/cronos": "~1.0",
         "doctrine/annotations": "1.*",
-        "symfony/console": ">=2.2,<=2.5",
-        "symfony/framework-bundle": ">=2.2,<=2.5",
+        "symfony/console": ">=2.2,<3.0",
+        "symfony/framework-bundle": ">=2.2,<3.0",
         "php": ">=5.3.3"
     },
     "require-dev": {

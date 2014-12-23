@@ -102,6 +102,23 @@ If everything looks ok you can replace your crontab by running the command below
 You can also limit which commands are included in the cron file by specifying a server and it will then only show
 commands which are specified for that server.
 
+## Add cron task third-party commands
+
+You can add the following to your `config.yml` to specify
+
+```yaml
+my_builder_cronos:
+#....
+    commands:
+        swift:
+            command: 'swiftmailer:spool:send'
+            minute: '/5'
+```
+
+view all options
+
+    app/console config:dump-reference my_builder_cronos
+
 ### Exporting the cron
 
     app/console cron:dump --server=web

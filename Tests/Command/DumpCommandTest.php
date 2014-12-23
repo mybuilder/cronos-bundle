@@ -14,6 +14,7 @@ class DumpCommandTest extends CronosTestCase
 {
     private $application;
     private $command;
+    private $rootDir;
 
     protected function setUp()
     {
@@ -21,6 +22,7 @@ class DumpCommandTest extends CronosTestCase
         $kernel->boot();
 
         $this->application = new Application($kernel);
+        $this->rootDir = realpath($this->application->getKernel()->getContainer()->getParameter('kernel.root_dir').'/..');
 
         $this->application->add(new DumpCommand());
         $this->application->add(new ReplaceCommand());
@@ -39,6 +41,7 @@ class DumpCommandTest extends CronosTestCase
 
         $commandTester = new CommandTester($this->command);
         $commandTester->execute($input);
+        $expectedOutput = str_replace('##ROOT_DIR##', $this->rootDir, $expectedOutput);
 
         $this->assertEquals($expectedOutput, trim($commandTester->getDisplay()));
     }
@@ -53,11 +56,11 @@ We would have put the following in cron
 PATH=/bin:~/bin
 MAILTO=test@example.com
 
-27   0    *    *    6    php app/console cronos:test-command --env=test
+27   0    *    *    6    cd ##ROOT_DIR##; php app/console cronos:test-command --env=test
 
-*/5  */3  *    *    *    php app/console cronos:test-command --env=test
+*/5  */3  *    *    *    cd ##ROOT_DIR##; php app/console cronos:test-command --env=test
 
-41   10   1    *    *    php -d mbstring.func_overload=0 app/console cronos:test-command --env=test',
+41   10   1    *    *    cd ##ROOT_DIR##; php -d mbstring.func_overload=0 app/console cronos:test-command --env=test',
                 array(
                     '--env' => 'test'
                 )
@@ -69,7 +72,7 @@ We would have put the following in cron
 PATH=/bin:~/bin
 MAILTO=test@example.com
 
-27   0    *    *    6    php app/console cronos:test-command --env=prod',
+27   0    *    *    6    cd ##ROOT_DIR##; php app/console cronos:test-command --env=prod',
                 array(
                     '--env' => 'prod',
                     '--server' => 'web'

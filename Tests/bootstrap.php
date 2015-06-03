@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(error_reporting() & ~E_USER_DEPRECATED);
+
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
 // Composer

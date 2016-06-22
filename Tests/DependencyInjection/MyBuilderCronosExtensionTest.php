@@ -78,7 +78,7 @@ class MyBuilderCronosExtensionTest extends \PHPUnit_Framework_TestCase
         $locator = new FileLocator(__DIR__ . '/config');
         $file = $locator->locate($fileName, null, true);
 
-        $config = Yaml::parse($file);
+        $config = Yaml::parse(file_get_contents($file));
         if (null === $config) {
             return array();
         }

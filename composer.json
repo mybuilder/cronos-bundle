@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "mybuilder/cronos": "~1.0",
+        "mybuilder/cronos": "~2.0",
         "doctrine/annotations": "1.*",
         "symfony/console": "~2.7|~3.0",
         "symfony/framework-bundle": "~2.7|~3.0",
@@ -35,7 +35,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.0-dev"
         }
     }
 }

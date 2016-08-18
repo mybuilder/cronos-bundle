@@ -16,12 +16,12 @@ services:
         arguments:
             - "@mybuilder.cronos_bundle.process_runner"
             - "@mybuilder.cronos_bundle.filesystem"
-        private: true
+        public: false
 
     mybuilder.cronos_bundle.process_runner:
         class: MyBuilder\Cronos\Updater\SymfonyProcessRunner
-        private: true
+        public: false
 
     mybuilder.cronos_bundle.filesystem:
         class: MyBuilder\Cronos\Updater\SymfonyFileSystem
-        private: true
+        public: false

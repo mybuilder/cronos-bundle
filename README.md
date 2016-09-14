@@ -91,6 +91,7 @@ annotation                                               | description
 `@Cron(minute="5", hour="8", dayOfWeek="0")`             | 5 minutes past 8am every Sunday
 `@Cron(minute="5", hour="8", dayOfMonth="1")`            | 5 minutes past 8am on first of each month
 `@Cron(minute="5", hour="8", dayOfMonth="1", month="1")` | 5 minutes past 8am on first of of January
+`@Cron(minute="/5", params="--user=barman")`             | Every 5 minutes, with a custom param
 
 ## Building the cron
 

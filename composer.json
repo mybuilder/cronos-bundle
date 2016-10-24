@@ -1,6 +1,6 @@
 {
     "name": "mybuilder/cronos-bundle",
-    "description": "Symfony 2 bundle which allows you to use @Cron annotations to configure cron to run your console commands.",
+    "description": "Symfony 2/3 bundle which allows you to use @Cron annotations to configure cron to run your console commands.",
     "keywords": ["cron", "cronos"],
     "minimum-stability": "stable",
     "license": "MIT",

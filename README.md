@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mybuilder/cronos-bundle.svg?branch=master)](https://travis-ci.org/mybuilder/cronos-bundle)
 
-A bundle for Symfony 2 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
+A bundle for Symfony 2/3 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
 
 Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual output and updating.
 
@@ -91,27 +91,28 @@ annotation                                               | description
 `@Cron(minute="5", hour="8", dayOfWeek="0")`             | 5 minutes past 8am every Sunday
 `@Cron(minute="5", hour="8", dayOfMonth="1")`            | 5 minutes past 8am on first of each month
 `@Cron(minute="5", hour="8", dayOfMonth="1", month="1")` | 5 minutes past 8am on first of of January
+`@Cron(minute="/5", params="--user=barman")`             | Every 5 minutes, with a custom param
 
 ## Building the cron
 
-You should run `app/console cron:dump` and review what the cron file would look after it has been updated.
+You should run `app/console cronos:dump` and review what the cron file would look after it has been updated.
 If everything looks ok you can replace your crontab by running the command below.
 
-`app/console cron:replace`
+`app/console cronos:replace`
 
 You can also limit which commands are included in the cron file by specifying a server and it will then only show
 commands which are specified for that server.
 
 ### Exporting the cron
 
-    app/console cron:dump --server=web
-    app/console cron:replace --server=web
+    app/console cronos:dump --server=web
+    app/console cronos:replace --server=web
 
 ### Environment
 
 You can choose which environment you want to run the commands in cron under like this
 
-`app/console cron:replace --server=web --env=prod`
+`app/console cronos:replace --server=web --env=prod`
 
 ## Troubleshooting
 

@@ -4,7 +4,6 @@ namespace MyBuilder\Bundle\CronosBundle\Tests\DependencyInjection;
 
 use MyBuilder\Bundle\CronosBundle\DependencyInjection\MyBuilderCronosExtension;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Yaml;
 

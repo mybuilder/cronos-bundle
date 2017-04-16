@@ -6,6 +6,9 @@ class ArrayHeaderConfigurator
 {
     private $header;
 
+    /**
+     * @param \MyBuilder\Cronos\Formatter\Header $header
+     */
     public function __construct($header)
     {
         $this->header = $header;

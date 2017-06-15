@@ -50,7 +50,6 @@ class MyBuilderCronosExtensionTest extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 array(
-                    'key' => '%kernel.name%_%kernel.environment%',
                     'executor' => 'php',
                     'console' => '%kernel.root_dir%/../bin/console',
                 ),

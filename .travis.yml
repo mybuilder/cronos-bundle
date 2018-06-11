@@ -1,19 +1,37 @@
 language: php
 
-php:
-  - 5.6
-  - 7.0
-  - 7.1
+cache:
+    directories:
+        - $HOME/.composer/cache/files
+        - .phpunit
 
 env:
-  - SYMFONY_VERSION=2.7.*
-  - SYMFONY_VERSION=2.8.*
-  - SYMFONY_VERSION=3.0.*
-  - SYMFONY_VERSION=3.1.*
-  - SYMFONY_VERSION=3.2.*
+    global:
+        - SYMFONY_PHPUNIT_DIR=.phpunit
 
-before_script:
-  - composer require symfony/framework-bundle:${SYMFONY_VERSION}
-  - composer require symfony/console:${SYMFONY_VERSION}
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.1
+      env: SYMFONY_VERSION="2.7.*"
+    - php: 7.1
+      env: SYMFONY_VERSION="2.8.*"
+    - php: 7.1
+      env: SYMFONY_VERSION="3.4.*"
+    # Test latest PHP against all symfony versions
+    - php: 7.2
+      env: SYMFONY_VERSION="2.7.*"
+    - php: 7.2
+      env: SYMFONY_VERSION="2.8.*"
+    - php: 7.2
+      env: SYMFONY_VERSION="3.4.*"
 
-script: bin/phpunit
+before_install:
+    - composer self-update
+    - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/framework-bundle:"${SYMFONY_VERSION}"; fi
+    - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/console:"${SYMFONY_VERSION}"; fi
+
+install:
+    - composer update $COMPOSER_FLAGS
+
+script: bin/phpunit -v

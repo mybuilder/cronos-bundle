@@ -1,6 +1,6 @@
 {
     "name": "mybuilder/cronos-bundle",
-    "description": "Symfony 2/3 bundle which allows you to use @Cron annotations to configure cron to run your console commands.",
+    "description": "Symfony bundle which allows you to use @Cron annotations to configure cron to run your console commands.",
     "keywords": ["cron", "cronos"],
     "minimum-stability": "stable",
     "license": "MIT",
@@ -19,10 +19,10 @@
     "require": {
         "mybuilder/cronos": "~2.0",
         "doctrine/annotations": "1.*",
-        "symfony/console": "~2.7|~3.0",
-        "symfony/framework-bundle": "~2.7|~3.0",
-        "php": ">=7.1",
-        "symfony/yaml": "~2.7|~3.0"
+        "symfony/console": "~2.7|~3.0||^4.0",
+        "symfony/framework-bundle": "~2.7|~3.0||^4.0",
+        "symfony/yaml": "~2.7|~3.0||^4.0",
+        "php": ">=7.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0"
@@ -33,10 +33,5 @@
     "target-dir": "MyBuilder/Bundle/CronosBundle",
     "config": {
         "bin-dir": "bin"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0-dev"
-        }
     }
 }

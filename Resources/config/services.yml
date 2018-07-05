@@ -2,6 +2,7 @@ services:
 
     mybuilder.cronos_bundle.annotation_cron_exporter:
         class: MyBuilder\Bundle\CronosBundle\Exporter\AnnotationCronExporter
+        public: true
         arguments:
             - "@annotation_reader"
         calls:
@@ -9,6 +10,7 @@ services:
 
     mybuilder.cronos_bundle.cron_process_updater:
         class: MyBuilder\Cronos\Updater\CronUpdater
+        public: true
         arguments: [ "@mybuilder.cronos_bundle.cron_manipulator" ]
 
     mybuilder.cronos_bundle.cron_manipulator:

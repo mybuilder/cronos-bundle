@@ -22,6 +22,7 @@
         "symfony/console": "~2.7|~3.0||^4.0",
         "symfony/framework-bundle": "~2.7|~3.0||^4.0",
         "symfony/yaml": "~2.7|~3.0||^4.0",
+        "symfony/property-access": "~2.7|~3.0||^4.0",
         "php": ">=7.1"
     },
     "require-dev": {

@@ -3,15 +3,15 @@
 namespace MyBuilder\Bundle\CronosBundle\Tests\DependencyInjection;
 
 use MyBuilder\Bundle\CronosBundle\DependencyInjection\MyBuilderCronosExtension;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Yaml;
 
 /**
 * MyBuilderCronosExtension
 */
-class MyBuilderCronosExtensionTest extends \PHPUnit_Framework_TestCase
+class MyBuilderCronosExtensionTest extends TestCase
 {
     /**
      * @var MyBuilderCronosExtension

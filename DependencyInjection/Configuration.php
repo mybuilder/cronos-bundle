@@ -49,6 +49,10 @@ class Configuration implements ConfigurationInterface
                             ->example('/bin/sh')
                             ->info('Allows you to specify which shell each program should be run with.')
                         ->end()
+                        ->scalarNode('timezone')
+                            ->example('Europe/Paris')
+                            ->info('Allows you to add CRON_TZ which specifies the time zone specific for the cron table.')
+                        ->end()
                     ->end()
                 ->end()
             ->end();

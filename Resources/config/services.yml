@@ -9,13 +9,11 @@ services:
 
     mybuilder.cronos_bundle.command.dump:
         class: MyBuilder\Bundle\CronosBundle\Command\DumpCommand
-        public: false
         tags:
             - { name: 'console.command' }
 
     mybuilder.cronos_bundle.command.replace:
         class: MyBuilder\Bundle\CronosBundle\Command\ReplaceCommand
-        public: false
         tags:
             - { name: 'console.command' }
 

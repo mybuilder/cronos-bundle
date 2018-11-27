@@ -1,5 +1,4 @@
 services:
-
     mybuilder.cronos_bundle.annotation_cron_exporter:
         class: MyBuilder\Bundle\CronosBundle\Exporter\AnnotationCronExporter
         public: true
@@ -7,6 +6,16 @@ services:
             - "@annotation_reader"
         calls:
             - [ setConfig, ["%mybuilder.cronos_bundle.exporter_config%"] ]
+
+    mybuilder.cronos_bundle.command.dump:
+        class: MyBuilder\Bundle\CronosBundle\Command\DumpCommand
+        tags:
+            - { name: 'console.command' }
+
+    mybuilder.cronos_bundle.command.replace:
+        class: MyBuilder\Bundle\CronosBundle\Command\ReplaceCommand
+        tags:
+            - { name: 'console.command' }
 
     mybuilder.cronos_bundle.cron_process_updater:
         class: MyBuilder\Cronos\Updater\CronUpdater

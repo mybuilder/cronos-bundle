@@ -8,11 +8,13 @@ Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual 
 
 ## Installation
 
+**Note:** If you use Symfony 3 or higher you should replace `app/console` with `bin/console`.
+
 ### Install with composer
 
 Run the composer require command:
 
-``` bash
+```bash
 $ php composer.phar require mybuilder/cronos-bundle
 ```
 
@@ -20,7 +22,7 @@ $ php composer.phar require mybuilder/cronos-bundle
 
 Enable the bundle in the `app/AppKernel.php`:
 
-``` php
+```php
 public function registerBundles() {
     $bundles = array(
         new MyBuilder\Bundle\CronosBundle\MyBuilderCronosBundle(),

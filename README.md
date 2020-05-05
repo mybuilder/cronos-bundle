@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mybuilder/cronos-bundle.svg?branch=master)](https://travis-ci.org/mybuilder/cronos-bundle)
 
-A bundle for Symfony 3/4 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
+A bundle for Symfony 3/4/5 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
 
 Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual output and updating.
 
@@ -29,7 +29,7 @@ public function registerBundles(): array
 }
 ```
 
-Enable the bundle in the `config/bundles.php` for Symfony 4:
+Enable the bundle in the `config/bundles.php` for Symfony 4/5:
 
 ```php
 return [
@@ -39,7 +39,7 @@ return [
 
 ### Configure the bundle
 
-You can add the following to your `config.yml` (Symfony 3) / `packages/my_builder_cronos.yaml` (Symfony 4) to configure the package.
+You can add the following to your `config.yml` (Symfony 3) / `packages/my_builder_cronos.yaml` (Symfony 4/5) to configure the package.
 
 ```yaml
 my_builder_cronos:

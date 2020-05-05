@@ -33,6 +33,8 @@ class ReplaceCommand extends CommandBase
         } catch (\RuntimeException $e) {
             $output->writeln(sprintf('<comment>Cron cannot be updated - %s</comment>', $e->getMessage()));
         }
+
+        return 0;
     }
 
     private function getExportKey()

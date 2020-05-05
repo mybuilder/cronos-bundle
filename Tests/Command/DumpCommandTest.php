@@ -40,7 +40,7 @@ class DumpCommandTest extends CronosTestCase
         $commandTester = new CommandTester($this->command);
         $commandTester->execute($input);
 
-        $this->assertEquals($expectedOutput, trim($commandTester->getDisplay()));
+        static::assertEquals($expectedOutput, trim($commandTester->getDisplay()));
     }
 
     public function environmentDumps(): array

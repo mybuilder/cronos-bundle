@@ -29,7 +29,7 @@ class MyBuilderCronosExtensionTest extends TestCase
     {
         $this->loader->load($this->getConfig($file), $this->container);
 
-        $this->assertEquals($expected, $this->container->getParameter('mybuilder.cronos_bundle.exporter_config'));
+        static::assertEquals($expected, $this->container->getParameter('mybuilder.cronos_bundle.exporter_config'));
     }
 
     public function providerTestConfig(): array

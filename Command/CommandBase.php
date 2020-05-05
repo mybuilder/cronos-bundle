@@ -34,7 +34,7 @@ class CommandBase extends ContainerAwareCommand
 
         $output->writeln(sprintf('Server <comment>%s</comment>', $options['serverName']));
         $cron = $this->exportCron($options);
-        $output->writeln(sprintf('<Comment>Found %d lines<comment>', $cron->countLines()));
+        $output->writeln(sprintf('<comment>Found %d lines</comment>', $cron->countLines()));
 
         return $cron;
     }

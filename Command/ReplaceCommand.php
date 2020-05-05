@@ -31,7 +31,7 @@ class ReplaceCommand extends CommandBase
             $this->getContainer()->get('mybuilder.cronos_bundle.cron_process_updater')->updateWith($cron, $key);
             $output->writeln(sprintf('<info>Cron successfully updated with key </info><comment>%s</comment>', $key));
         } catch (\RuntimeException $e) {
-            $output->writeln(sprintf('<Comment>Cron cannot be updated - %s<comment>', $e->getMessage()));
+            $output->writeln(sprintf('<comment>Cron cannot be updated - %s</comment>', $e->getMessage()));
         }
     }
 

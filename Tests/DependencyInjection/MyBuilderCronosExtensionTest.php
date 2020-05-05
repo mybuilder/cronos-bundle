@@ -25,7 +25,7 @@ class MyBuilderCronosExtensionTest extends TestCase
     /**
      * @dataProvider providerTestConfig
      */
-    public function testConfig(array $expected, string $file): void
+    public function test_config(array $expected, string $file): void
     {
         $this->loader->load($this->getConfig($file), $this->container);
 

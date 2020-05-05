@@ -29,11 +29,16 @@ class DumpCommandTest extends CronosTestCase
         $this->command = $application->find('cronos:dump');
     }
 
+    protected function tearDown(): void
+    {
+        self::ensureKernelShutdown();
+    }
+
     /**
      * @test
      * @dataProvider environmentDumps
      */
-    public function dumpShouldBeAsExpected(string $expectedOutput, array $input): void
+    public function test_dump_should_be_as_expected(string $expectedOutput, array $input): void
     {
         $input = array_merge(['command' => $this->command->getName()], $input);
 

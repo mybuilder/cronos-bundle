@@ -15,7 +15,7 @@ class DumpCommandTest extends CronosTestCase
     /** @var Command */
     private $command;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $kernel = self::createKernel();
         $kernel->boot();

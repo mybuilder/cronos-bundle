@@ -16,7 +16,7 @@ class MyBuilderCronosExtensionTest extends TestCase
     /** @var ContainerBuilder */
     private $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = new ContainerBuilder();
         $this->loader = new MyBuilderCronosExtension();
@@ -25,7 +25,7 @@ class MyBuilderCronosExtensionTest extends TestCase
     /**
      * @dataProvider providerTestConfig
      */
-    public function testConfig(array $expected, string $file)
+    public function testConfig(array $expected, string $file): void
     {
         $this->loader->load($this->getConfig($file), $this->container);
 

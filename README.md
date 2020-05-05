@@ -8,8 +8,6 @@ Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual 
 
 ## Installation
 
-**Note:** If you use Symfony 2 you should replace `bin/console` with `app/console`.
-
 ### Install with composer
 
 Run the composer require command:

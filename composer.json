@@ -17,11 +17,11 @@
     "require": {
         "mybuilder/cronos": "~2.0",
         "doctrine/annotations": "1.*",
-        "symfony/console": "~2.7|~3.0||^4.0",
-        "symfony/framework-bundle": "~2.7|~3.0||^4.0",
-        "symfony/yaml": "~2.7|~3.0||^4.0",
-        "symfony/property-access": "~2.7|~3.0||^4.0",
-        "php": ">=7.1"
+        "symfony/console": "~3.0||^4.0",
+        "symfony/framework-bundle": "~3.0||^4.0",
+        "symfony/yaml": "3.0||^4.0",
+        "symfony/property-access": "~3.0||^4.0",
+        "php": ">=7.3"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",

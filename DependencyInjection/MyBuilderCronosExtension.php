@@ -16,7 +16,7 @@ class MyBuilderCronosExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        $exporterConfig = isset($config['exporter']) ? $config['exporter'] : array();
+        $exporterConfig = $config['exporter'] ?? [];
         $container->setParameter('mybuilder.cronos_bundle.exporter_config', $exporterConfig);
     }
 }

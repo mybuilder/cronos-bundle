@@ -2,43 +2,39 @@
 
 namespace MyBuilder\Bundle\CronosBundle\Exporter;
 
+use Doctrine\Common\Annotations\Annotation;
+use Doctrine\Common\Annotations\Reader;
 use MyBuilder\Bundle\CronosBundle\Annotation\Cron as CronAnnotation;
 use MyBuilder\Cronos\Formatter\Cron as CronFormatter;
 use Symfony\Component\Console\Command\Command;
 
 class AnnotationCronExporter
 {
-    const ALL_SERVERS = 'all';
+    public const ALL_SERVERS = 'all';
 
+    /** @var Reader */
     private $annotationsReader;
-    private $config = array();
 
-    public function __construct($annotationsReader)
+    /** @var array */
+    private $config = [];
+
+    public function __construct(Reader $annotationsReader)
     {
         $this->annotationsReader = $annotationsReader;
     }
 
-    /**
-     * Set the config
-     *
-     * @param array $config
-     */
-    public function setConfig(array $config)
+    public function setConfig(array $config): void
     {
         $this->config = $config;
     }
 
     /**
      * Export the cron for the given commands and server
-     *
-     * @param array $commands
-     * @param array $options
-     *
-     * @return CronFormatter
      */
-    public function export(array $commands, array $options)
+    public function export(array $commands, array $options): CronFormatter
     {
         $cron = $this->createCronConfiguration();
+
         foreach ($commands as $command) {
             if ($command instanceof Command) {
                 $cron = $this->parseAnnotations($cron, $command, $options);
@@ -48,20 +44,16 @@ class AnnotationCronExporter
         return $cron;
     }
 
-    /**
-     * Create and configure Cron
-     *
-     * @return CronFormatter
-     */
-    private function createCronConfiguration()
+    private function createCronConfiguration(): CronFormatter
     {
         $cron = new CronFormatter;
         $configurator = new ArrayHeaderConfigurator($cron->header());
         $configurator->configureFrom($this->config);
+
         return $cron;
     }
 
-    private function parseAnnotations($cron, Command $command, array $options)
+    private function parseAnnotations(CronFormatter $cron, Command $command, array $options): CronFormatter
     {
         foreach ($this->getAnnotations($command) as $annotation) {
             if ($this->annotationBelongsToServer($annotation, $options['serverName'])) {
@@ -72,29 +64,32 @@ class AnnotationCronExporter
         return $cron;
     }
 
-    private function annotationBelongsToServer($annotation, $serverName)
+    private function annotationBelongsToServer(Annotation $annotation, string $serverName): bool
     {
         return
-            $annotation instanceof CronAnnotation &&
-            ($serverName === self::ALL_SERVERS || $annotation->server === $serverName);
+            $annotation instanceof CronAnnotation
+            && ($serverName === self::ALL_SERVERS || $annotation->server === $serverName);
     }
 
-    private function addLine($command, $annotation, array $options, $cron)
+    private function addLine(Command $command, CronAnnotation $annotation, array $options, CronFormatter $cron): CronFormatter
     {
         if ($annotation->comment !== null) {
             $cron->comment($annotation->comment);
         }
+
         if ($command->getDescription()) {
             $cron->comment($command->getDescription());
         }
+
         $line = $cron->job($this->buildCommand($command->getName(), $annotation, $options));
-        
+
         $configurator = new AnnotationLineConfigurator($line);
         $configurator->configureFrom($annotation);
+
         return $cron;
     }
 
-    private function getAnnotations(Command $command)
+    private function getAnnotations(Command $command): array
     {
         $reflectedClass = new \ReflectionClass($command);
 
@@ -102,27 +97,22 @@ class AnnotationCronExporter
     }
 
     /**
-     * build the Command to execute with parameters and environment.
-     *
-     * @param string $commandName Name of command to execute
-     * @param $annotation
-     * @param array $options
-     *
-     * @return string
+     * Build the Command to execute with parameters and environment.
      */
-    private function buildCommand($commandName, $annotation, array $options)
+    private function buildCommand(string $commandName, CronAnnotation $annotation, array $options): string
     {
+        $executor = '';
+
         if ($annotation->executor) {
             $executor = $annotation->executor;
-        } else if ($this->config['executor']) {
+        } elseif ($this->config['executor']) {
             $executor = $this->config['executor'];
-        } else {
-            $executor = '';
         }
 
         $console = isset($this->config['console']) ? ' ' . $this->config['console'] : '';
         $environment = isset($options['environment']) ? ' --env=' . $options['environment'] : '';
         $params = $annotation->params ? ' ' . $annotation->params : '';
+
         return $executor . $console . ' ' . $commandName . $params . $environment;
     }
 }

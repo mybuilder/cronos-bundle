@@ -12,44 +12,28 @@ use Doctrine\Common\Annotations\Annotation;
  */
 class Cron extends Annotation
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $minute;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $hour;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $dayOfMonth;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $month;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $dayOfWeek;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $comment;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $logFile;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $errorFile;
 
     /**
@@ -66,13 +50,9 @@ class Cron extends Annotation
      */
     public $server;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $params;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $executor;
 }

@@ -2,22 +2,26 @@
 
 namespace MyBuilder\Bundle\CronosBundle\Exporter;
 
+use MyBuilder\Cronos\Formatter\Header;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class ArrayHeaderConfigurator
 {
-    private $configFields = array('mailto', 'path', 'shell', 'encoding', 'contentType', 'timezone');
+    /** @var string[] */
+    private $configFields = ['mailto', 'path', 'shell', 'encoding', 'contentType', 'timezone'];
 
+    /** @var Header */
     private $header;
 
-    public function __construct($header)
+    public function __construct(Header $header)
     {
         $this->header = $header;
     }
 
-    public function configureFrom(array $config)
+    public function configureFrom(array $config): Header
     {
         $propertyAccessor = new PropertyAccessor();
+
         foreach ($this->configFields as $configField) {
             if (isset($config[$configField])) {
                 $propertyAccessor->setValue($this->header, $configField, $config[$configField]);

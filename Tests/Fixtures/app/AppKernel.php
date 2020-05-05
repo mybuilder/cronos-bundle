@@ -2,7 +2,6 @@
 
 namespace MyBuilder\Bundle\CronosBundle\Tests\Fixtures\app;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use MyBuilder\Bundle\CronosBundle\MyBuilderCronosBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\HttpKernel\Kernel;
@@ -12,12 +11,10 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
+        return [
             new FrameworkBundle(),
             new MyBuilderCronosBundle(),
-        );
-
-        return $bundles;
+        ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

@@ -2,16 +2,20 @@
 
 namespace MyBuilder\Bundle\CronosBundle\Exporter;
 
+use MyBuilder\Bundle\CronosBundle\Annotation\Cron as CronAnnotation;
+use MyBuilder\Cronos\Formatter\Job;
+
 class AnnotationLineConfigurator
 {
+    /** @var Job */
     private $line;
 
-    public function __construct($line)
+    public function __construct(Job $line)
     {
         $this->line = $line;
     }
 
-    public function configureFrom($annotation)
+    public function configureFrom(CronAnnotation $annotation): Job
     {
         if ($annotation->minute !== null) {
             $this->line->setMinute($annotation->minute);

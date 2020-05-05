@@ -2,13 +2,11 @@
 
 [![Build Status](https://travis-ci.org/mybuilder/cronos-bundle.svg?branch=master)](https://travis-ci.org/mybuilder/cronos-bundle)
 
-A bundle for Symfony that allows you to use `@Cron` annotations to configure when cron should run your console commands.
+A bundle for Symfony 3/4 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
 
 Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual output and updating.
 
 ## Installation
-
-**Note:** If you use Symfony 3 or higher you should replace `app/console` with `bin/console`.
 
 ### Install with composer
 
@@ -20,38 +18,49 @@ $ php composer.phar require mybuilder/cronos-bundle
 
 ### Enable the bundle
 
-Enable the bundle in the `app/AppKernel.php`:
+```
+
+Enable the bundle in the `app/AppKernel.php` for Symfony 3:
+
+``` php
+public function registerBundles(): array
+{
+    return [
+        new MyBuilder\Bundle\CronosBundle\MyBuilderCronosBundle(),
+    ];
+}
+```
+
+Enable the bundle in the `config/bundles.php` for Symfony 4:
 
 ```php
-public function registerBundles() {
-    $bundles = array(
-        new MyBuilder\Bundle\CronosBundle\MyBuilderCronosBundle(),
-    );
-}
+return [
+    MyBuilder\Bundle\CronosBundle\MyBuilderCronosBundle::class => ['all' => true],
+];
 ```
 
 ### Configure the bundle
 
-You can add the following to your `config.yml` to specify
+You can add the following to your `config.yml` (Symfony 3) / `packages/my_builder_cronos.yaml` (Symfony 4) to configure the package.
 
 ```yaml
 my_builder_cronos:
     exporter:
         key: unique-key
         mailto: cron@example.com
-        path: /bin:/home/gavin/bin
+        path: /bin:/usr/local/bin
         executor: php
-        console: app/console
+        console: bin/console
         shell: /bin/bash
 ```
 
 option   | description
 ---------|-----------------------------------------
-key      | Unique key that wraps all the cron configured for the current application
+key      | Unique key that wraps all the cron configured for the current application.
 mailto   | Sets the default email address for all cron output to go to.
 path     | Sets the path for all commands in the crontab it works just like the shell PATH, but it does not inherit from your environment. That means you cannot use ~ or other shell expansions.
-executor | Allows you to specify a program that all commands should be passed to such as `/usr/local/bin/php`
-console  | Allows you to specify the console that all commands should be passed to such as `app/console`
+executor | Allows you to specify a program that all commands should be passed to such as `/usr/local/bin/php`.
+console  | Allows you to specify the console that all commands should be passed to such as `bin/console`.
 shell    | Allows you to specify which shell each program should be run with.
 
 ## Usage
@@ -62,8 +71,8 @@ The first step is to add the use case for the annotation to the top of the comma
 use MyBuilder\Bundle\CronosBundle\Annotation\Cron;
 ```
 
-Then add to the phpdoc for the command class the '@Cron' annotation which tells cron when you want it to run
-This example says it should be run on the web server, every 5 minutes and we don't want to log any output.
+Then add to the phpdoc for the command class the '@Cron' annotation which tells cron when you want it to run.
+This example says it should be run on the web server, every 5 minutes, and we don't want to log any output.
 
 ```php
 /**
@@ -75,13 +84,12 @@ class SendQueuedEmailsCommand extends Command {}
 ```
 
 ### Specifying when to run
+
 The whole point of cron is being able to specify when a script is run therefore there are a lot of options.
 
-You should read the [general cron info](http://en.wikipedia.org/wiki/Cron) for a general idea of
-cron and what you can use in these time fields.
+You should read the [general cron info](http://en.wikipedia.org/wiki/Cron) for a general idea of cron and what you can use in these time fields.
 
-**Please note** You CANNOT use `*/` in the annotations, if you want `*/5` just put `/5` and [Cronos](https://github.com/mybuilder/cronos)
-will automatically change it to `*/5`.
+**Please note** You CANNOT use `*/` in the annotations, if you want `*/5` just put `/5` and [Cronos](https://github.com/mybuilder/cronos) will automatically change it to `*/5`.
 
 ### Annotation examples
 
@@ -102,8 +110,7 @@ If everything looks ok you can replace your crontab by running the command below
 
 `app/console cronos:replace`
 
-You can also limit which commands are included in the cron file by specifying a server and it will then only show
-commands which are specified for that server.
+You can also limit which commands are included in the cron file by specifying a server, and it will then only show commands which are specified for that server.
 
 ### Exporting the cron
 
@@ -112,17 +119,16 @@ commands which are specified for that server.
 
 ### Environment
 
-You can choose which environment you want to run the commands in cron under like this
+You can choose which environment you want to run the commands in cron under like this.
 
 `app/console cronos:replace --server=web --env=prod`
 
 ## Troubleshooting
 
 * When a cron line is executed it is executed with the user that owns the crontab, but it will not execute any of the users default shell files so all paths etc need to be specified in the command called from the cron line.
-* Your crontab will not be executed if you do not have useable shell in /etc/passwd
-* If your jobs don't seem to be running check that the cron deamon is running, also check your username is in /etc/cron.allow and not in /etc/cron.deny.
-* Environmental substitutions do not work, you can not use things like $PATH, $HOME, or ~/sbin.
- 
+* Your crontab will not be executed if you do not have usable shell in `/etc/passwd`
+* If your jobs don't seem to be running check the cron daemon is running, also check your username is in `/etc/cron.allow` and not in `/etc/cron.deny`.
+* Environmental substitutions do not work, you cannot use things like `$PATH`, `$HOME`, or `~/sbin`.
 
 ---
 

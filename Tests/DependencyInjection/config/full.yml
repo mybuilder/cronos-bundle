@@ -4,5 +4,5 @@ my_builder_cronos:
         mailto: config-test@example.com
         path: /bin:/usr/local/bin
         executor: php
-        console: app/console
+        console: bin/console
         shell: /bin/bash

@@ -31,5 +31,7 @@ class DumpCommand extends CommandBase
 
         $output->writeln('<info>We would have put the following in cron</info>');
         $output->write($content = $cron->format());
+
+        return 0;
     }
 }

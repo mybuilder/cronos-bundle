@@ -18,8 +18,6 @@ $ php composer.phar require mybuilder/cronos-bundle
 
 ### Enable the bundle
 
-```
-
 Enable the bundle in the `app/AppKernel.php` for Symfony 3:
 
 ```php

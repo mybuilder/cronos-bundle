@@ -30,7 +30,6 @@
     "autoload": {
         "psr-4": { "MyBuilder\\Bundle\\CronosBundle\\": "" }
     },
-    "target-dir": "MyBuilder/Bundle/CronosBundle",
     "config": {
         "bin-dir": "bin"
     }

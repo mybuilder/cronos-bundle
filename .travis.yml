@@ -23,6 +23,7 @@ matrix:
 
 before_install:
     - composer self-update
+    - composer validate
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/framework-bundle:"${SYMFONY_VERSION}"; fi
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require --dev --no-update symfony/console:"${SYMFONY_VERSION}"; fi
 

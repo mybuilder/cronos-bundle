@@ -4,6 +4,7 @@ namespace MyBuilder\Bundle\CronosBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class Configuration implements ConfigurationInterface
 {
@@ -17,6 +18,14 @@ class Configuration implements ConfigurationInterface
             // Symfony 3
             $treeBuilder = new TreeBuilder();
             $rootNode = $treeBuilder->root('my_builder_cronos');
+        }
+
+        if (method_exists(Kernel::class, 'getProjectDir')) {
+            // `kernel.project_dir` available since Symfony 3.3
+            $pathToConsole = '%kernel.project_dir%/bin/console';
+        } else {
+            // `kernel.root_dir` dropped in Symfony 5
+            $pathToConsole = '%kernel.root_dir%/../bin/console';
         }
 
         $rootNode
@@ -47,7 +56,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->scalarNode('console')
                             ->cannotBeEmpty()
-                            ->defaultValue('%kernel.root_dir%/../bin/console')
+                            ->defaultValue($pathToConsole)
                             ->example('%kernel.project_dir%/bin/console')
                             ->info('Allows you to specify the console that all commands should be passed to such as "bin/console".')
                         ->end()

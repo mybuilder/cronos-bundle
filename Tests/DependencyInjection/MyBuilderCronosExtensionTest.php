@@ -6,6 +6,7 @@ use MyBuilder\Bundle\CronosBundle\DependencyInjection\MyBuilderCronosExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 
 class MyBuilderCronosExtensionTest extends TestCase
@@ -34,11 +35,17 @@ class MyBuilderCronosExtensionTest extends TestCase
 
     public function providerTestConfig(): array
     {
+        if (method_exists(Kernel::class, 'getProjectDir')) {
+            $pathToConsole = '%kernel.project_dir%/bin/console';
+        } else {
+            $pathToConsole = '%kernel.root_dir%/../bin/console';
+        }
+
         return [
             [
                 [
                     'executor' => 'php',
-                    'console' => '%kernel.root_dir%/../bin/console',
+                    'console' => $pathToConsole,
                 ],
                 'empty.yml',
             ],

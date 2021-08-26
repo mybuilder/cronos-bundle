@@ -17,6 +17,11 @@ services:
         tags:
             - { name: 'console.command' }
 
+    mybuilder.cronos_bundle.command.export:
+        class: MyBuilder\Bundle\CronosBundle\Command\ExportCommand
+        tags:
+            - { name: 'console.command' }
+
     mybuilder.cronos_bundle.cron_process_updater:
         class: MyBuilder\Cronos\Updater\CronUpdater
         public: true

@@ -1,5 +1,6 @@
 composer.lock
 composer.phar
+.phpunit.result.cache
 bin/
 vendor/
 /Tests/Fixtures/app/cache/

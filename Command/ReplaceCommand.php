@@ -22,7 +22,7 @@ class ReplaceCommand extends CommandBase
     /**
      * @inheritdoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $cron = $this->configureCronExport($input, $output);
         $key = $this->getExportKey();

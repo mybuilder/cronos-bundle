@@ -1,7 +1,5 @@
 # Cronos Bundle
 
-[![Build Status](https://travis-ci.org/mybuilder/cronos-bundle.svg?branch=master)](https://travis-ci.org/mybuilder/cronos-bundle)
-
 A bundle for Symfony 3/4/5/6 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
 
 Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual output and updating.
@@ -39,7 +37,7 @@ return [
 
 ### Configure the bundle
 
-You can add the following to your `config.yml` (Symfony 3) / `packages/my_builder_cronos.yaml` (Symfony 4/5/6) to configure the package.
+You can add the following to your `config.yml` (Symfony 3) / `packages/my_builder_cronos.yaml` (Symfony 4/5) to configure the package.
 
 ```yaml
 my_builder_cronos:
@@ -52,14 +50,7 @@ my_builder_cronos:
         shell: /bin/bash
 ```
 
-option   | description
----------|-----------------------------------------
 key      | Unique key that wraps all the cron configured for the current application.
-mailto   | Sets the default email address for all cron output to go to.
-path     | Sets the path for all commands in the crontab it works just like the shell PATH, but it does not inherit from your environment. That means you cannot use ~ or other shell expansions.
-executor | Allows you to specify a program that all commands should be passed to such as `/usr/local/bin/php`.
-console  | Allows you to specify the console that all commands should be passed to such as `bin/console`.
-shell    | Allows you to specify which shell each program should be run with.
 
 ## Usage
 

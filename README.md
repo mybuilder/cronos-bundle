@@ -101,23 +101,23 @@ annotation                                               | description
 
 ## Building the cron
 
-You should run `app/console cronos:dump` and review what the cron file would look after it has been updated.
+You should run `bin/console cronos:dump` and review what the cron file would look after it has been updated.
 If everything looks ok you can replace your crontab by running the command below.
 
-`app/console cronos:replace`
+`bin/console cronos:replace`
 
 You can also limit which commands are included in the cron file by specifying a server, and it will then only show commands which are specified for that server.
 
 ### Exporting the cron
 
-    app/console cronos:dump --server=web
-    app/console cronos:replace --server=web
+    bin/console cronos:dump --server=web
+    bin/console cronos:replace --server=web
 
 ### Environment
 
 You can choose which environment you want to run the commands in cron under like this.
 
-`app/console cronos:replace --server=web --env=prod`
+`bin/console cronos:replace --server=web --env=prod`
 
 ## Troubleshooting
 

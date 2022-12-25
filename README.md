@@ -110,7 +110,7 @@ You can also limit which commands are included in the cron file by specifying a 
 
 You can choose which environment you want to run the commands in cron under like this.
 
-`bin/console cronos:replace --server=public --env=prod`
+`bin/console cronos:replace --server=web --env=prod`
 
 ## Troubleshooting
 

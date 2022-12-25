@@ -10,7 +10,7 @@ class ReplaceCommand extends CommandBase
     /**
      * @inheritdoc
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('cronos:replace')

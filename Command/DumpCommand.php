@@ -13,7 +13,7 @@ class DumpCommand extends CommandBase
     /**
      * @inheritdoc
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('cronos:dump')

@@ -3,15 +3,16 @@
     "description": "Symfony 4/5/6 bundle which allows you to use @Cron annotations to configure cron to run your console commands.",
     "keywords": ["cron", "cronos"],
     "minimum-stability": "stable",
+    "type" : "symfony-bundle",
     "license": "MIT",
     "authors": [
         {
             "name": "Gavin Love",
-            "homepage": "http://www.mybuilder.com"
+            "homepage": "https://www.mybuilder.com"
         },
         {
             "name": "Keyvan Akbary",
-            "homepage": "http://www.mybuilder.com"
+            "homepage": "https://www.mybuilder.com"
         }
     ],
     "require": {

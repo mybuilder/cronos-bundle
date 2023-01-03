@@ -11,23 +11,12 @@ Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual 
 Run the composer require command:
 
 ```bash
-$ php composer.phar require mybuilder/cronos-bundle
+$ composer require mybuilder/cronos-bundle
 ```
 
 ### Enable the bundle
 
-Enable the bundle in the `app/AppKernel.php` for Symfony 3:
-
-```php
-public function registerBundles(): array
-{
-    return [
-        new MyBuilder\Bundle\CronosBundle\MyBuilderCronosBundle(),
-    ];
-}
-```
-
-Enable the bundle in the `config/bundles.php` for Symfony 4/5/6:
+If you do not use Symfony Flex, enable the bundle in the `config/bundles.php` for Symfony 4/5/6:
 
 ```php
 return [
@@ -37,7 +26,7 @@ return [
 
 ### Configure the bundle
 
-You can add the following to your `config.yml` (Symfony 3) / `packages/my_builder_cronos.yaml` (Symfony 4/5/6) to configure the package.
+You can add the following to your `config/packages/my_builder_cronos.yaml` (Symfony 4/5/6) to configure the package.
 
 ```yaml
 my_builder_cronos:
@@ -83,7 +72,7 @@ class SendQueuedEmailsCommand extends Command {}
 
 The whole point of cron is being able to specify when a script is run therefore there are a lot of options.
 
-You should read the [general cron info](http://en.wikipedia.org/wiki/Cron) for a general idea of cron and what you can use in these time fields.
+You should read the [general cron info](https://en.wikipedia.org/wiki/Cron) for a general idea of cron and what you can use in these time fields.
 
 **Please note** You CANNOT use `*/` in the annotations, if you want `*/5` just put `/5` and [Cronos](https://github.com/mybuilder/cronos) will automatically change it to `*/5`.
 
@@ -128,4 +117,4 @@ You can choose which environment you want to run the commands in cron under like
 
 ---
 
-Created by [MyBuilder](http://www.mybuilder.com/) - Check out our [blog](http://tech.mybuilder.com/) for more insight into this and other open-source projects we release.
+Created by [MyBuilder](https://www.mybuilder.com/) - Check out our [blog](https://tech.mybuilder.com/) for more insight into this and other open-source projects we release.

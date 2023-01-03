@@ -1,6 +1,6 @@
 # Cronos Bundle
 
-A bundle for Symfony 3/4/5/6 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
+A bundle for Symfony 4/5/6 that allows you to use `@Cron` annotations to configure when cron should run your console commands.
 
 Uses the [Cronos](https://github.com/mybuilder/cronos) library to do the actual output and updating.
 

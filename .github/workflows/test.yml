@@ -9,8 +9,6 @@ jobs:
       matrix:
         include:
           - php-versions: 7.3
-            symfony-versions: 3.4.*
-          - php-versions: 7.4
             symfony-versions: 4.4.*
           - php-versions: 7.4
             symfony-versions: 5.4.*

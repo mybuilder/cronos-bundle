@@ -13,13 +13,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('my_builder_cronos');
         $rootNode = $treeBuilder->getRootNode();
 
-        if (method_exists(Kernel::class, 'getProjectDir')) {
-            // `kernel.project_dir` available since Symfony 3.3
-            $pathToConsole = '%kernel.project_dir%/bin/console';
-        } else {
-            // `kernel.root_dir` dropped in Symfony 5
-            $pathToConsole = '%kernel.root_dir%/../bin/console';
-        }
+        $pathToConsole = '%kernel.project_dir%/bin/console';
 
         $rootNode
             ->children()

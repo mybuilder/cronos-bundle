@@ -50,7 +50,14 @@ my_builder_cronos:
         shell: /bin/bash
 ```
 
-key      | Unique key that wraps all the cron configured for the current application.
+| option   | description                                                                                                                                                                            |
+|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| key      | Unique key that wraps all the cron configured for the current application.                                                                                                             |
+| mailto   | Sets the default email address for all cron output to go to.                                                                                                                           |
+| path     | Sets the path for all commands in the crontab it works just like the shell PATH, but it does not inherit from your environment. That means you cannot use ~ or other shell expansions. |
+| executor | Allows you to specify a program that all commands should be passed to such as `/usr/local/bin/php`.                                                                                    |
+| console  | Allows you to specify the console that all commands should be passed to such as `bin/console`.                                                                                         |
+| shell    | Allows you to specify which shell each program should be run with.                                                                                                                     |
 
 ## Usage
 
@@ -82,15 +89,15 @@ You should read the [general cron info](http://en.wikipedia.org/wiki/Cron) for a
 
 ### Annotation examples
 
-annotation                                               | description
----------------------------------------------------------|------------------------------------------
-`@Cron(minute="/5")`                                     | Every 5 minutes
-`@Cron(minute="5")`                                      | At the 5th minute of each hour
-`@Cron(minute="5", hour="8")`                            | 5 minutes past 8am every day
-`@Cron(minute="5", hour="8", dayOfWeek="0")`             | 5 minutes past 8am every Sunday
-`@Cron(minute="5", hour="8", dayOfMonth="1")`            | 5 minutes past 8am on first of each month
-`@Cron(minute="5", hour="8", dayOfMonth="1", month="1")` | 5 minutes past 8am on first of of January
-`@Cron(minute="/5", params="--user=barman")`             | Every 5 minutes, with a custom param
+| annotation                                               | description                               |
+|----------------------------------------------------------|-------------------------------------------|
+| `@Cron(minute="/5")`                                     | Every 5 minutes                           |
+| `@Cron(minute="5")`                                      | At the 5th minute of each hour            |
+| `@Cron(minute="5", hour="8")`                            | 5 minutes past 8am every day              |
+| `@Cron(minute="5", hour="8", dayOfWeek="0")`             | 5 minutes past 8am every Sunday           |
+| `@Cron(minute="5", hour="8", dayOfMonth="1")`            | 5 minutes past 8am on first of each month |
+| `@Cron(minute="5", hour="8", dayOfMonth="1", month="1")` | 5 minutes past 8am on first of of January |
+| `@Cron(minute="/5", params="--user=barman")`             | Every 5 minutes, with a custom param      |
 
 ## Building the cron
 

@@ -14,7 +14,7 @@ use MyBuilder\Bundle\CronosBundle\Annotation\Cron;
  */
 class TestCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('cronos:test-command');
     }

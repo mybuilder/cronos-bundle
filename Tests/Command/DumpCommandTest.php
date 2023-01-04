@@ -12,8 +12,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class DumpCommandTest extends CronosTestCase
 {
-    /** @var Command */
-    private $command;
+    private Command $command;
 
     protected function setUp(): void
     {
@@ -35,7 +34,6 @@ class DumpCommandTest extends CronosTestCase
     }
 
     /**
-     * @test
      * @dataProvider environmentDumps
      */
     public function test_dump_should_be_as_expected(string $expectedOutput, array $input): void

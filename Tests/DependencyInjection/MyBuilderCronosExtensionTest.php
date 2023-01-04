@@ -11,11 +11,8 @@ use Symfony\Component\Yaml\Yaml;
 
 class MyBuilderCronosExtensionTest extends TestCase
 {
-    /** @var MyBuilderCronosExtension */
-    private $loader;
-
-    /** @var ContainerBuilder */
-    private $container;
+    private MyBuilderCronosExtension $loader;
+    private ContainerBuilder $container;
 
     protected function setUp(): void
     {
@@ -73,10 +70,6 @@ class MyBuilderCronosExtensionTest extends TestCase
 
         $config = Yaml::parse(file_get_contents($file));
 
-        if (null === $config) {
-            return [];
-        }
-
-        return $config;
+        return $config ?? [];
     }
 }

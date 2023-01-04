@@ -12,16 +12,11 @@ class AnnotationCronExporter
 {
     public const ALL_SERVERS = 'all';
 
-    /** @var Reader */
-    private $annotationsReader;
-
     /** @var array */
-    private $config = [];
+    private array $config = [];
 
-    public function __construct(Reader $annotationsReader)
-    {
-        $this->annotationsReader = $annotationsReader;
-    }
+    public function __construct(private Reader $annotationsReader)
+    {}
 
     public function setConfig(array $config): void
     {

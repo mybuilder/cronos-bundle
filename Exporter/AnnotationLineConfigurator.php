@@ -7,13 +7,8 @@ use MyBuilder\Cronos\Formatter\Job;
 
 class AnnotationLineConfigurator
 {
-    /** @var Job */
-    private $line;
-
-    public function __construct(Job $line)
-    {
-        $this->line = $line;
-    }
+    public function __construct(private Job $line)
+    {}
 
     public function configureFrom(CronAnnotation $annotation): Job
     {

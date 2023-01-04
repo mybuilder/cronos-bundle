@@ -19,6 +19,7 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         $loader->load(__DIR__ . '/config/' . $this->getEnvironment() . '.yml');
     }
 }

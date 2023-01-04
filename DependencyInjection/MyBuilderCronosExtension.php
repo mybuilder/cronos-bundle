@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Loader;
 
 class MyBuilderCronosExtension extends Extension
 {
+    /** @noinspection PhpUnhandledExceptionInspection */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $config = $this->processConfiguration(new Configuration(), $configs);

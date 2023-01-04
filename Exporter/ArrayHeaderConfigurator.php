@@ -8,15 +8,10 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 class ArrayHeaderConfigurator
 {
     /** @var string[] */
-    private $configFields = ['mailto', 'path', 'shell', 'encoding', 'contentType', 'timezone'];
+    private array $configFields = ['mailto', 'path', 'shell', 'encoding', 'contentType', 'timezone'];
 
-    /** @var Header */
-    private $header;
-
-    public function __construct(Header $header)
-    {
-        $this->header = $header;
-    }
+    public function __construct(private Header $header)
+    {}
 
     public function configureFrom(array $config): Header
     {

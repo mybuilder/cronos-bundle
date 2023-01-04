@@ -25,6 +25,7 @@ class AnnotationCronExporter
 
     /**
      * Export the cron for the given commands and server
+     * @param Command[] $commands
      */
     public function export(array $commands, array $options): CronFormatter
     {

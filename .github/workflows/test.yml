@@ -67,7 +67,7 @@ jobs:
         run: composer require --no-update symfony/console:"${{ matrix.symfony-versions }}";
 
       - name: Install Composer dependencies
-        run: composer update --no-progress --no-suggest --prefer-dist --optimize-autoloader
+        run: composer update --no-progress --prefer-dist --optimize-autoloader
 
       ## —— Test ✅ ———————————————————————————————————————————————————————————
       - name: Run Tests

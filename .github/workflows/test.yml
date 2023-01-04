@@ -60,14 +60,13 @@ jobs:
       - name: Validate Composer.json
         run: composer validate
 
-      - name: Fix symfony version for symfony/framework
-        run: composer require --no-update symfony/framework-bundle:"${{ matrix.symfony-versions }}";
-
-      - name: Fix symfony version for symfony/console
-        run: composer require --no-update symfony/console:"${{ matrix.symfony-versions }}";
-
-      - name: Install Composer dependencies
-        run: composer update --no-progress --prefer-dist --optimize-autoloader
+      - name: Install dependencies
+        env:
+            SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
+        run: |
+            composer global config --no-plugins allow-plugins.symfony/flex true
+            composer global require --no-progress --no-scripts --no-plugins symfony/flex
+            composer update --no-interaction --prefer-dist --optimize-autoloader
 
       ## —— Test ✅ ———————————————————————————————————————————————————————————
       - name: Run Tests

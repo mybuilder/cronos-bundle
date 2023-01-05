@@ -25,7 +25,7 @@ jobs:
           - php-version: 8.2
             symfony-version: 6.2.*
 
-    name: PHP ${{ matrix.php-version }} Test with Symfony ${{ matrix.symfony-version }}
+    name: PHP ${{ matrix.php-version }} Test with Symfony ${{ matrix.symfony-version }} and ${{ matrix.stability }}
     steps:
       # —— Setup Github actions 🐙 —————————————————————————————————————————————
       - name: Checkout
@@ -58,8 +58,8 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           # Use composer.json for key, if composer.lock is not committed.
           # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          key: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ matrix.symfony-version }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ matrix.symfony-version }}-
+          key: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ matrix.symfony-version }}--${{ matrix.stability }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ matrix.symfony-version }}--${{ matrix.stability }}-
 
       - name: Validate Composer.json
         run: composer validate
@@ -70,7 +70,7 @@ jobs:
         run: |
             composer global config --no-plugins allow-plugins.symfony/flex true
             composer global require --no-progress --no-scripts --no-plugins symfony/flex
-            composer update --no-interaction --prefer-dist --optimize-autoloader
+            composer update --no-interaction --prefer-dist --optimize-autoloader --${{ matrix.stability }}
 
       ## —— Test ✅ ———————————————————————————————————————————————————————————
       - name: Run Tests

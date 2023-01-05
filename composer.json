@@ -18,7 +18,7 @@
     "require": {
         "php": ">=8.0.2",
         "mybuilder/cronos": "^3.0 || ^4.0",
-        "doctrine/annotations": "^1.*",
+        "doctrine/annotations": "1.*",
         "symfony/console": "^4.4.20 || ^5.4 || ^6.0",
         "symfony/config": "^4.4.20 || ^5.4 || ^6.0",
         "symfony/dependency-injection": "^4.4.20 || ^5.4 || ^6.0",

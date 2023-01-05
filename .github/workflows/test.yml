@@ -7,23 +7,28 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        stability: [ prefer-stable ]
         include:
           - php-version: 8.0
             symfony-version: 4.4.*
             stability: prefer-lowest
           - php-version: 8.0
             symfony-version: 4.4.*
+            stability: prefer-stable
           - php-version: 8.0
             symfony-version: 5.4.*
+            stability: prefer-stable
           - php-version: 8.0
             symfony-version: 5.4.*
+            stability: prefer-stable
           - php-version: 8.0
             symfony-version: 6.0.*
+            stability: prefer-stable
           - php-version: 8.1
             symfony-version: 6.2.*
+            stability: prefer-stable
           - php-version: 8.2
             symfony-version: 6.2.*
+            stability: prefer-stable
 
     name: PHP ${{ matrix.php-version }} Test with Symfony ${{ matrix.symfony-version }} and ${{ matrix.stability }}
     steps:

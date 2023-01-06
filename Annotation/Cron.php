@@ -12,47 +12,21 @@ use Doctrine\Common\Annotations\Annotation;
  */
 class Cron extends Annotation
 {
-    /** @var string */
-    public $minute;
+    public string $minute;
+    public string $hour;
+    public ?string $dayOfMonth = null;
+    public ?string $month = null;
+    public ?string $dayOfWeek = null;
+    public ?string $comment = null;
+    public ?string $logFile = null;
+    public ?string $errorFile = null;
 
-    /** @var string */
-    public $hour;
+    // If true add /dev/null.
+    public ?bool $noLogs = null;
 
-    /** @var string */
-    public $dayOfMonth;
+    // Which server should this cron job run on.
+    public string $server;
 
-    /** @var string */
-    public $month;
-
-    /** @var string */
-    public $dayOfWeek;
-
-    /** @var string */
-    public $comment;
-
-    /** @var string */
-    public $logFile;
-
-    /** @var string */
-    public $errorFile;
-
-    /**
-     * If true add /dev/null.
-     *
-     * @var boolean
-     */
-    public $noLogs;
-
-    /**
-     * Which server should this cron job run on.
-     *
-     * @var string
-     */
-    public $server;
-
-    /** @var string */
-    public $params;
-
-    /** @var string */
-    public $executor;
+    public ?string $params = null;
+    public ?string $executor = null;
 }

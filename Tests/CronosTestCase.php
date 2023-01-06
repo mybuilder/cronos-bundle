@@ -3,6 +3,7 @@
 namespace MyBuilder\Bundle\CronosBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use MyBuilder\Bundle\CronosBundle\Tests\Fixtures\app\AppKernel;
 
 class CronosTestCase extends WebTestCase
 {
@@ -10,6 +11,6 @@ class CronosTestCase extends WebTestCase
     {
         require_once __DIR__ . '/Fixtures/app/AppKernel.php';
 
-        return 'MyBuilder\Bundle\CronosBundle\Tests\Fixtures\app\AppKernel';
+        return AppKernel::class;
     }
 }

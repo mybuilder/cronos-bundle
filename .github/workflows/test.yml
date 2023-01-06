@@ -6,22 +6,32 @@ jobs:
   run:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
-          - php-versions: 7.3
-            symfony-versions: 4.4.*
-          - php-versions: 7.4
-            symfony-versions: 5.4.*
-          - php-versions: 8.0
-            symfony-versions: 5.4.*
-          - php-versions: 8.0
-            symfony-versions: 6.0.*
-          - php-versions: 8.1
-            symfony-versions: 6.2.*
-          - php-versions: 8.2
-            symfony-versions: 6.2.*
+          - php-version: 8.0
+            symfony-version: 4.4.*
+            stability: prefer-lowest
+          - php-version: 8.0
+            symfony-version: 4.4.*
+            stability: prefer-stable
+          - php-version: 8.0
+            symfony-version: 5.4.*
+            stability: prefer-stable
+          - php-version: 8.0
+            symfony-version: 5.4.*
+            stability: prefer-stable
+          - php-version: 8.0
+            symfony-version: 6.0.*
+            stability: prefer-stable
+          - php-version: 8.1
+            symfony-version: 6.2.*
+            stability: prefer-stable
+          - php-version: 8.2
+            symfony-version: 6.2.*
+            stability: prefer-stable
 
-    name: PHP ${{ matrix.php-versions }} Test with Symfony ${{ matrix.symfony-versions }}
+    name: PHP ${{ matrix.php-version }} Test with Symfony ${{ matrix.symfony-version }} and ${{ matrix.stability }}
     steps:
       # —— Setup Github actions 🐙 —————————————————————————————————————————————
       - name: Checkout
@@ -31,7 +41,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php-version }}
           extensions: mbstring, xml, ctype, iconv, intl
           coverage: xdebug #optional
 
@@ -54,20 +64,19 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           # Use composer.json for key, if composer.lock is not committed.
           # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          key: ${{ runner.os }}-composer-${{ matrix.php-versions }}-${{ matrix.symfony-versions }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-${{ matrix.php-versions }}-${{ matrix.symfony-versions }}-
+          key: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ matrix.symfony-version }}--${{ matrix.stability }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ matrix.symfony-version }}--${{ matrix.stability }}-
 
       - name: Validate Composer.json
         run: composer validate
 
-      - name: Fix symfony version for symfony/framework
-        run: composer require --no-update symfony/framework-bundle:"${{ matrix.symfony-versions }}";
-
-      - name: Fix symfony version for symfony/console
-        run: composer require --no-update symfony/console:"${{ matrix.symfony-versions }}";
-
-      - name: Install Composer dependencies
-        run: composer update --no-progress --no-suggest --prefer-dist --optimize-autoloader
+      - name: Install dependencies
+        env:
+            SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
+        run: |
+            composer global config --no-plugins allow-plugins.symfony/flex true
+            composer global require --no-progress --no-scripts --no-plugins symfony/flex
+            composer update --no-interaction --prefer-dist --optimize-autoloader --${{ matrix.stability }}
 
       ## —— Test ✅ ———————————————————————————————————————————————————————————
       - name: Run Tests

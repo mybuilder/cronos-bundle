@@ -105,7 +105,7 @@ class AnnotationCronExporter
             $executor = $this->config['executor'];
         }
 
-        $console = isset($this->config['console']) ? ' ' . $this->config['console'] : '';
+        $console = isset($this->config['console']) ? ' ' . str_replace(' ', '\ ', $this->config['console']) : '';
         $environment = isset($options['environment']) ? ' --env=' . $options['environment'] : '';
         $params = $annotation->params ? ' ' . $annotation->params : '';
 

@@ -7,6 +7,7 @@ use Doctrine\Common\Annotations\Reader;
 use MyBuilder\Bundle\CronosBundle\Annotation\Cron as CronAnnotation;
 use MyBuilder\Cronos\Formatter\Cron as CronFormatter;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\LazyCommand;
 
 class AnnotationCronExporter
 {
@@ -32,6 +33,9 @@ class AnnotationCronExporter
         $cron = $this->createCronConfiguration();
 
         foreach ($commands as $command) {
+            if ($command instanceof LazyCommand) {
+                $command = $command->getCommand();
+            }
             if ($command instanceof Command) {
                 $cron = $this->parseAnnotations($cron, $command, $options);
             }
